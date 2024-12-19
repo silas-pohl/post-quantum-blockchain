@@ -1,6 +1,0 @@
-[submodule "falcon.py"]
-	path = falcon.py
-	url = https://github.com/tprest/falcon.py.git
-[submodule "liboqs-python"]
-	path = liboqs-python
-	url = https://github.com/open-quantum-safe/liboqs-python.git
