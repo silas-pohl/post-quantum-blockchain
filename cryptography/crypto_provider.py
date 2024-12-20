@@ -28,7 +28,6 @@ class CryptoProvider:
             signature = ecdsa.SigningKey.from_der(secret_key).sign(message)
         else:
             with oqs.Signature(self.signature_algorithm, secret_key) as signer:
-                print(message)
                 signature = signer.sign(message)
         return signature
 

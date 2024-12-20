@@ -33,8 +33,6 @@ class Transaction:
             private_key (bytes): The sender's private key in bytes format.
         """
         transaction = f'{self.sender}{self.recipient}{self.amount}'.encode()
-        print(f"Transaction to sign: {transaction}")
-        print("\n")
         self.signature = self.crypto_provider.sign(private_key, transaction)
 
     def is_valid(self) -> bool:
