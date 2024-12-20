@@ -1,0 +1,14 @@
+{
+    "name": "Post Quantum Blockchain",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "."
+    },
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.pythonPath": "/venv/bin/python"
+    },
+    "remoteUser": "post-quantum-blockchain",
+    "postCreateCommand": "echo 'source /home/post-quantum-blockchain/venv/bin/activate' >> ~/.bashrc",
+    "workspaceFolder": "/home/post-quantum-blockchain/workspace"
+}
