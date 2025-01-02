@@ -45,7 +45,7 @@ class Transaction:
         transaction = f'{self.sender}{self.recipient}{self.amount}'.encode()
         return self.crypto_provider.verify(base64.b64decode(self.sender), transaction, self.signature)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str: # pragma: no cover
         return (
             "\n"
             f"  | Sender:     {self.sender}\n"

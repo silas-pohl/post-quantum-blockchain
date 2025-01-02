@@ -49,6 +49,9 @@ class Block:
         Returns:
             bool: True if the block is valid; False otherwise.
         """
+        print(self.hash)
+        print(self.compute_hash())
+
         if (
             not all(transaction.is_valid() for transaction in self.transactions) or
             self.hash != self.compute_hash()
@@ -56,7 +59,7 @@ class Block:
             return False
         return True
 
-    def __str__(self) -> str:
+    def __str__(self) -> str: # pragma: no cover
         return (
                 f"Block #{self.index}\n"
                 f"Previous Hash: {self.previous_hash}\n"

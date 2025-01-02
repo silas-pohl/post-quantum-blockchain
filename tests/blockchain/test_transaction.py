@@ -3,8 +3,6 @@ import base64
 import cryptography
 from blockchain import Transaction
 
-algorithms = set(['Falcon-512'])
-
 @pytest.fixture(params=cryptography.SUPPORTED_SIGNATURE_ALGORITHMS)
 def init(request):
     signature_algorithm = request.param
@@ -20,7 +18,7 @@ def init(request):
 def test_create_transaction(init):
     transaction, address1, address2, amount, crypto_provider, _, _ = init
 
-    #Check if creation of transaction works
+    # Check if creation of transaction works
     assert isinstance(transaction, Transaction), "Transaction should be of type Transaction"
     assert transaction.sender == address1, "Sender should contain address1"
     assert transaction.recipient == address2, "Recipient should contain address2"

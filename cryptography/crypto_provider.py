@@ -8,7 +8,7 @@ class CryptoProvider:
         self.signature_algorithm = signature_algorithm
         self.hashing_algorithm = hashing_algorithm
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return "CryptoProvider" + self.signature_algorithm + self.hashing_algorithm
 
     def generate_keypair(self) -> Tuple[bytes, bytes]:

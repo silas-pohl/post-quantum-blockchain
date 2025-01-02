@@ -101,7 +101,7 @@ class Blockchain:
                     balance -= transaction.amount
         return balance
 
-    def __str__(self) -> str:
+    def __str__(self) -> str: # pragma: no cover
         return (
             f"Blockchain with Blocksize {self.block_size} and Difficulty {self.difficulty}\n\n"
             + "\n\n".join(str(block) for block in self.chain) + "\n"

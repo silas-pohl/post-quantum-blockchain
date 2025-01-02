@@ -1,27 +1,32 @@
-FROM ubuntu:latest
+ARG LIBOQS_BUILD_DEFINES="-DOQS_DIST_BUILD=ON -DBUILD_SHARED_LIBS=ON -DOQS_USE_OPENSSL=OFF"
 
-# Install dependencies
-RUN apt-get -y update && \
-    apt-get install -y build-essential git cmake libssl-dev python3 python3-venv pip
+## FIRST STAGE: get all sources and build the binary content
+FROM alpine:3.21 as intermediate
+ARG LIBOQS_BUILD_DEFINES
+LABEL version="2"
+ENV DEBIAN_FRONTEND noninteractive
+RUN apk update && apk upgrade
+RUN apk add build-base linux-headers cmake ninja git
+# Get liboqs and liboqs-python sources
+WORKDIR /opt
+RUN git clone --depth 1 --branch main https://github.com/open-quantum-safe/liboqs && \
+    git clone --depth 1 --branch main https://github.com/open-quantum-safe/liboqs-python.git
+# Build liboqs
+WORKDIR /opt/liboqs
+RUN mkdir build && cd build && cmake -G"Ninja" .. ${LIBOQS_BUILD_DEFINES} && ninja install
 
-ENV GITHUB_TAG="main"
-
-# Get and install liboqs
-RUN git clone --depth 1 --branch ${GITHUB_TAG} https://github.com/open-quantum-safe/liboqs
-RUN cmake -S liboqs -B liboqs/build -DBUILD_SHARED_LIBS=ON && \
-    cmake --build liboqs/build --parallel 4 && \
-    cmake --build liboqs/build --target install
-
-# Enable a normal user
-RUN useradd -m -c "Post Quantum Blockchain" post-quantum-blockchain
-USER post-quantum-blockchain
-WORKDIR /home/post-quantum-blockchain
-
-# Get and install liboqs-python
-RUN git clone --depth 1 --branch ${GITHUB_TAG} https://github.com/open-quantum-safe/liboqs-python.git
-
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-ENV PYTHONPATH=$PYTHONPATH:/home/post-quantum-blockchain/liboqs-python
-
+## SECOND STAGE: Only create minimal image without build tooling and intermediate build results generated above:
+FROM alpine:3.21
+RUN apk update && apk upgrade
+RUN apk add bash python3 py3-pip
+# Only retain the binary contents of liboqs in the final image
+COPY --from=intermediate /usr/local /usr/local
+# Create a normal user and copy liboqs-python to user directory
+#RUN addgroup -g 1000 -S pqb && adduser --uid 1000 -S pqb -G pqb
+COPY --from=intermediate /opt/liboqs-python /root/liboqs-python
+ENV PYTHONPATH=$PYTHONPATH:/root/liboqs-python
+# Enable the user
+#USER pqb
+# Create venv in user directory
+WORKDIR /root
 RUN python3 -m venv venv
-RUN . venv/bin/activate && cd liboqs-python && pip install . && cd $HOME && pip install ecdsa pytest
