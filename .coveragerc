@@ -1,0 +1,5 @@
+[run]
+source = /root/workspace
+
+[report]
+omit = /root/liboqs-python/*

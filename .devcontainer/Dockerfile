@@ -18,7 +18,7 @@ RUN mkdir build && cd build && cmake -G"Ninja" .. ${LIBOQS_BUILD_DEFINES} && nin
 ## SECOND STAGE: Only create minimal image without build tooling and intermediate build results generated above:
 FROM alpine:3.21
 RUN apk update && apk upgrade
-RUN apk add bash python3 py3-pip
+RUN apk add bash build-base python3 py3-pip python3-dev
 # Only retain the binary contents of liboqs in the final image
 COPY --from=intermediate /usr/local /usr/local
 # Create a normal user and copy liboqs-python to user directory
