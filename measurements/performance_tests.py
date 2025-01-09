@@ -12,7 +12,7 @@ from cryptography import CryptoProvider
 
 # Test Suite
 class BlockchainTestSuite:
-    def __init__(self, repeat_count=10, block_size=2, difficulty=1):
+    def __init__(self, repeat_count=100, block_size=2, difficulty=1, hash_algorithm='sha512'):
         self.algorithms = algorithms = ['ECDSA-SHA256', 'Falcon-512', 'Falcon-1024', 'Dilithium2', 'Dilithium3', 'Dilithium5', 'SPHINCS+-SHA2-256f-simple', 'SPHINCS+-SHA2-256s-simple']
         self.results = {
             "public_key_size": {},
@@ -26,10 +26,11 @@ class BlockchainTestSuite:
         self.repeat_count = repeat_count
         self.block_size = block_size
         self.difficulty = difficulty
+        self.hash_algorithm = hash_algorithm
 
         self.providers = {}
         for algorithm in self.algorithms:
-            provider = CryptoProvider(algorithm,'sha512')
+            provider = CryptoProvider(algorithm, self.hash_algorithm)
             self.providers[algorithm] = provider
 
     def test_key_and_signature_sizes(self):
@@ -102,8 +103,9 @@ class BlockchainTestSuite:
                 # storage_size = sum(len(str(block).encode()) for block in blockchain.chain)
                 storage_size = asizeof.asizeof(blockchain)
                 storage_usages.append(storage_size)
-
-            self.results["storage_usage"][name] = np.mean(storage_usages)
+            
+            # Take the mean and convert to Kilobytes
+            self.results["storage_usage"][name] = np.mean(storage_usages) / 1024
 
     def run_tests(self):
         print("Running Key and Signature Size Tests...")
@@ -121,7 +123,7 @@ class BlockchainTestSuite:
         self.plot_results("Transaction Time", self.results["transaction_time"], "transaction_time", "Time (ms)")
         self.plot_results("Verification Time", self.results["verification_time"], "verification_time", "Time (ms)")
         self.plot_results("Mining Time", self.results["mining_time"], "mining_time", "Time (ms)")
-        self.plot_results("Blockchain Storage Usage", self.results["storage_usage"], "storage_usage", "Bytes")
+        self.plot_results("Blockchain Storage Usage", self.results["storage_usage"], "storage_usage", "Size (Kilobytes)")
 
     def plot_results(self, title, data, label, ylabel):
         x = list(data.keys())
@@ -131,14 +133,13 @@ class BlockchainTestSuite:
         bars = plt.bar(x, values)  # Store the bar objects
         plt.title(title)
         plt.ylabel(ylabel)
-        plt.xticks(rotation=60)
+        plt.xticks(rotation=45, ha="right", rotation_mode="anchor")
         plt.grid(axis='y')
 
         # Add values on top of each bar
         for bar in bars:
             height = bar.get_height()
             plt.text(bar.get_x() + bar.get_width() / 2.0, height, f'{height:.2f}', ha='center', va='bottom')
-
 
         # Adjust y-axis limits to add some space above the tallest bar
         plt.ylim(0, max(values) * 1.1)  # Add 10% space above the tallest bar
