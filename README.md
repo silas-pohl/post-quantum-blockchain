@@ -1,32 +1,27 @@
-<style>
-.rounded {
-    border-radius: 10px;
-}
-</style>
-
 # Post-Quantum-Blockchain
+Evaluating the feasibility of introducing Post-Quantum-Cryptography in blockchains using the example of a minimal Python-based blockchain 
 <p align="center">
   <a href="https://www.python.org/">
-    <img class="rounded" src="https://img.icons8.com/?size=512&id=13441&format=png" height="60">
+    <img src="https://img.icons8.com/?size=512&id=13441&format=png" height="60">
   </a>
   <a href="https://docs.pytest.org/en/stable/">
-    <img class="rounded" src="https://docs.pytest.org/en/stable/_static/pytest1.png" height="60">
+    <img src="https://docs.pytest.org/en/stable/_static/pytest1.png" height="60">
   </a>
   <a href="https://numpy.org/">
-    <img class="rounded" src="https://numpy.org/images/logo.svg" height="60">
+    <img src="https://numpy.org/images/logo.svg" height="60">
   </a>
   <a href="https://matplotlib.org/stable/">
-    <img class="rounded" src="https://matplotlib.org/stable/_images/sphx_glr_logos2_001_2_00x.png" height="60">
+    <img src="https://matplotlib.org/stable/_images/sphx_glr_logos2_001_2_00x.png" height="60">
   </a>
   <a href="https://openquantumsafe.org/">
-    <img class="rounded" src="https://avatars.githubusercontent.com/u/20689385?s=200&v=4" height="60">
+    <img style="border-radius: 10px" src="https://avatars.githubusercontent.com/u/20689385?s=200&v=4" height="60">
   </a>
   <a href="https://containers.dev/">
-    <img class="rounded" src="https://avatars.githubusercontent.com/u/102692984?s=200&v=4" height="60">
+    <img style="border-radius: 10px" src="https://avatars.githubusercontent.com/u/102692984?s=200&v=4" height="60">
   </a>
 </p>
 
-## Evaluating the feasibility of introducing Post-Quantum-Cryptography in blockchains using the example of a minimal Python-based blockchain 
+---
 
 ### Description
 ### Getting Started
@@ -72,8 +67,8 @@ TOTAL                                          281      0   100%
 
 ### Running the Measurements
 
-### Implement Own Scenarios
-To implement own scenarios to eperiment with the blockchain, the cryptography provider and the blockchain code can easily imported into other python files.
+### Example Usage of the Blockchain
+To use the blockchain and implement own scenarios, the cryptography provider and the blockchain code can easily imported into other python files.
 ```
 import cryptography
 from blockchain import Transaction, Blockchain
@@ -105,7 +100,7 @@ blockchain.add_transaction(transaction1)
 blockchain.add_transaction(transaction2)
 blockchain.add_transaction(transaction3)
 ```
-Now we have a simple blockchain containing three unmined transactions. We can now start the mining process to try to find the first non-genesis block.
+Now we have a simple blockchain containing three unmined transactions. We can now start the mining process to try to find the block containing transactions.
 ```
 blockchain.mine_pending_transactions()
 ```
