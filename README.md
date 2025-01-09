@@ -46,7 +46,7 @@ To show the coverage report run:
 ```
 coverage report
 ```
-The current implementation has a functional test coverage of 100%
+The current implementation has a functional test coverage of 100%.
 ```
 Name                                         Stmts   Miss  Cover
 ----------------------------------------------------------------
@@ -67,16 +67,16 @@ TOTAL                                          281      0   100%
 
 ### Running the Measurements
 
-### Example Usage of the Blockchain
-To use the blockchain and implement own scenarios, the cryptography provider and the blockchain code can easily imported into other python files.
-```
+### Sample Usage of the Blockchain
+To use the blockchain and implement own scenarios, the cryptography provider and the blockchain code can easily be imported into other python files.
+```python
 import cryptography
 from blockchain import Transaction, Blockchain
 import base64 #needed to use the public key as the public address
 ``` 
 
-The basic setup consists of two public addresses and their corresponding secret keys. <signature_algorithm> and <hash_function> can be choosen freely out of all supported signature algorithms and hash functions. The constants `cryptography.SUPPORTED_SIGNATURE_ALGOROITHMS` and `cryptography.SUPPORTED_HASH_FUNCTIONS` contain the respective lists.
-```
+To create the "wallets" we us as part of our blockchain, we need to generate public keys and their corresponding secret keys. The used <signature_algorithm> and <hash_function> can be choosen freely out of all supported signature algorithms and hash functions (BUT: the same crypto provider should be used for key generation and all other blockchain operations). The constants `cryptography.SUPPORTED_SIGNATURE_ALGOROITHMS` and `cryptography.SUPPORTED_HASH_FUNCTIONS` contain the respective lists.
+```python
 crypto_provider = cryptography.CryptoProvider(<signature_algorithm>, <hash_function>)
 public_key1, secret_key1 = crypto_provider.generate_keypair()
 address1 = base64.b64encode(public_key1).decode("utf-8")
@@ -85,7 +85,7 @@ address2 = base64.b64encode(public_key2).decode("utf-8")
 ```
 
 The next step would be to create some sample transactions that we want to add to the blockchain.
-```
+```python
 transaction1 = Transaction(address1, address2, 30, crypto_provider)
 transaction1.sign_transaction(secret_key1)
 transaction2 = Transaction(address2, address1, 10, crypto_provider)
@@ -93,23 +93,24 @@ transaction2.sign_transaction(secret_key2)
 transaction3 = Transaction(address2, address1, 15, crypto_provider)
 transaction3.sign_transaction(secret_key2)
 ```
-Lastly, we can initiate our blockchain and add our transactions to it. We can choose the <block_size> (how many transactions should fit into one block) and the <difficulty> (the quantity of leading 0s for a block hash to be valid) when initiating the blockchain.
-```
+Lastly, we can initiate our blockchain and add our transactions to it. We can choose the `<block_size>` (how many transactions should fit into one block) and the `<difficulty>` (the quantity of leading 0s for a block hash to be valid) when initiating the blockchain.
+```python
 blockchain = Blockchain(<block_size>, <difficulty>, crypto_provider)
 blockchain.add_transaction(transaction1)
 blockchain.add_transaction(transaction2)
 blockchain.add_transaction(transaction3)
 ```
-Now we have a simple blockchain containing three unmined transactions. We can now start the mining process to try to find the block containing transactions.
-```
+Now we have a simple blockchain containing three unmined transactions. We can now start the mining process to try to find a valid hash for the first block containing transactions.
+```python
 blockchain.mine_pending_transactions()
 ```
-This process takes time depending on the choosen <difficulty> and once done, the first <block_size> amount of transaction will be mined. If the choosen <block_size> in this example is 3 or more, all added transactions will be mined and the funds of address1 will be -5 and of address2 will be 5. This can be confirmed with:
-```
+This process takes time depending on the choosen `<difficulty>` and once done, the first `<block_size>` amount of transaction will be mined. If the choosen `<block_size>` in this example is 3 or more, all added transactions will be mined and the funds of address1 will be -5 and of address2 will be 5.
+```python
 blockchain.get_balance(address1)
 blockchain.get_balance(address2)
 ```
-To verify the integrity of the blockchain (checking that each block in the chain is valid and that the hashes link correctly) run the following:
-```
+The integrity of the blockchain (Each block in the chain is valid and all hashes link correctly) can be verified. 
+```python
 blockchain.is_valid()
 ```
+Further information about the functionality of each component of the blockchain can be read in the extensive Docstrings of each method and class in the source code.
