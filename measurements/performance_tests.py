@@ -13,7 +13,7 @@ from cryptography import CryptoProvider
 # Test Suite
 class BlockchainTestSuite:
     def __init__(self, repeat_count=100, block_size=2, difficulty=1, hash_algorithm='sha512'):
-        self.algorithms = algorithms = ['ECDSA-SHA256', 'Falcon-512', 'Falcon-1024', 'Dilithium2', 'Dilithium3', 'Dilithium5', 'SPHINCS+-SHA2-256f-simple', 'SPHINCS+-SHA2-256s-simple']
+        self.algorithms = ['ECDSA-SHA256', 'Falcon-512', 'Falcon-1024', 'Dilithium2', 'Dilithium3', 'Dilithium5', 'SPHINCS+-SHA2-256f-simple', 'SPHINCS+-SHA2-256s-simple']
         self.results = {
             "public_key_size": {},
             "private_key_size": {},
@@ -23,10 +23,10 @@ class BlockchainTestSuite:
             "mining_time": {},
             "storage_usage": {}
         }
-        self.repeat_count = repeat_count
-        self.block_size = block_size
-        self.difficulty = difficulty
-        self.hash_algorithm = hash_algorithm
+        self.repeat_count = repeat_count # Number of repetitions for each test
+        self.block_size = block_size # Number of transactions per block
+        self.difficulty = difficulty # Mining difficulty level
+        self.hash_algorithm = hash_algorithm # Hashing algorithm used
 
         self.providers = {}
         for algorithm in self.algorithms:

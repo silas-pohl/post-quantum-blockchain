@@ -66,6 +66,47 @@ TOTAL                                          281      0   100%
 ```
 
 ### Running the Measurements
+Prerequisites: Before running the script, ensure packages in requirements.txt are installed. 
+
+```
+pip install -r requirements.txt
+```
+
+To run measurements and collect metrics on a selection of the supported signatures, run the script `performance_tests.py` inside `measurements` folder. 
+```
+cd measurements
+python performance_tests.py
+```
+The script will execute the following steps:
+
+- Key and Signature Size Tests: Measures public key, private key, and signature sizes for supported algorithms.
+- Transaction Efficiency Tests: Evaluates transaction creation, signature verification, and mining times (repeated and averaged over trials).
+- Storage Usage Test: Measures the size of the blockchain after adding transactions and mining (repeated and averaged over trials).
+
+The script automatically saves bar graphs showing the test results in a `figures/` folder as PNG files. If this folder does not exist, it will be created. These include:
+
+- Public Key Size
+- Private Key Size
+- Signature Size
+- Transaction Time
+- Verification Time
+- Mining Time
+- Blockchain Storage Usage
+
+The script currently tests and compares the following digital signature algorithms: ECDSA-SHA256, Falcon-512, Falcon-1024, Dilithium2, Dilithium3, Dilithium5, SPHINCS+-SHA2-256f-simple, SPHINCS+-SHA2-256s-simple. To add or modify algorithms, update the `self.algorithms` list in the `BlockchainTestSuite` class and ensure the `CryptoProvider` implementation supports the new algorithms.
+
+You can adjust the test parameters by modifying the BlockchainTestSuite initialization in the `__main__` block:
+
+```python
+test_suite = BlockchainTestSuite(
+    repeat_count=100,  # Number of repetitions for each test
+    block_size=2,      # Number of transactions per block
+    difficulty=1,      # Mining difficulty level
+    hash_algorithm='sha512'  # Hashing algorithm used
+)
+```
+
+For more customization, edit the respective test functions (`test_key_and_signature_sizes`, `test_transaction_efficiency`, `test_memory_and_storage`) in the script.
 
 ### Sample Usage of the Blockchain
 To use the blockchain and implement own scenarios, the cryptography provider and the blockchain code can easily be imported into other python files.
