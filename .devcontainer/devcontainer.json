@@ -1,0 +1,16 @@
+{
+    "name": "Post Quantum Blockchain",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.pythonPath": "/venv/bin/python"
+    },
+    "extensions": ["ms-python.python", "ms-azuretools.vscode-docker"],
+    "remoteUser": "root",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/root/workspace,type=bind",
+    "workspaceFolder": "/root/workspace",
+    "postCreateCommand": "/root/venv/bin/pip install -r requirements.txt && /root/venv/bin/pip install /root/liboqs-python && echo 'source /root/venv/bin/activate' >> ~/.bashrc"
+}
