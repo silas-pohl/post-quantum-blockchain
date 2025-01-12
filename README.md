@@ -27,8 +27,10 @@
 
 \- Dr. Lily Chen (mathematician and NIST fellow) in ["The race is on for quantum-safe cryptography", 2021](https://www.theverge.com/22523067/nist-challenge-quantum-safe-cryptography-computer-lattice)
 
-
 ---
+
+### Description
+This project aims to explore the research question "How feasible is the integration of quantum-safe signature algorithms into blockchains?" by setting up a minimal self-implemented python-based blockchain, which can be initialized with ECDSA or every quantum-safe signature algorithm supported by OQS. The comparative analysis focused on the three NIST standardized quantum-safe signature algorithms CRYSTALS-Dilithium, FALCON and SPHINCS+ and how their usage in the blockchain influences the performance and other attributes compared to the baseline with ECDSA signatures. 
 
 ### Getting Started
 Since the Open Quantum Safe Project, which provides the quantum safe signature algorithms, requires the local installation of the underlying C implementation, we decided to set up a Dev Container. This allows us to specify the installation of all requirements once in a Dockerfile, enabling easy use of this project without the requirement to install anything locally other than a Dev Container capable editor (rec. [Visual Studio Code](https://code.visualstudio.com/) + [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)) and [Docker](https://www.docker.com/).
