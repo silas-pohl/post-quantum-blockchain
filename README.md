@@ -30,7 +30,7 @@
 ---
 
 ### Description
-This project aims to explore the research question "How feasible is the integration of quantum-safe signature algorithms into blockchains?" by setting up a minimal self-implemented python-based blockchain, which can be initialized with ECDSA or every quantum-safe signature algorithm supported by OQS. The comparative analysis focused on the three NIST standardized quantum-safe signature algorithms CRYSTALS-Dilithium, FALCON and SPHINCS+ and how their usage in the blockchain influences the performance and other attributes compared to the baseline with ECDSA signatures. 
+This project aims to explore the research question "How feasible is the integration of quantum-safe signature algorithms into blockchains?" by setting up a minimal self-implemented python-based blockchain, which can be initialized with ECDSA or every quantum-safe signature algorithm supported by OQS. The comparative analysis focused on the three NIST standardized quantum-safe signature algorithms CRYSTALS-Dilithium, FALCON and SPHINCS+ and how their usage in the blockchain influences the performance and other attributes compared to the baseline with ECDSA signatures. More information can be found in the [project introduction slides](https://github.com/silas-pohl/post-quantum-blockchain/blob/master/project_introduction.pdf).
 
 ### Getting Started
 Since the Open Quantum Safe Project, which provides the quantum safe signature algorithms, requires the local installation of the underlying C implementation, we decided to set up a Dev Container. This allows us to specify the installation of all requirements once in a Dockerfile, enabling easy use of this project without the requirement to install anything locally other than a Dev Container capable editor (rec. [Visual Studio Code](https://code.visualstudio.com/) + [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)) and [Docker](https://www.docker.com/).
@@ -40,7 +40,7 @@ Since the Open Quantum Safe Project, which provides the quantum safe signature a
 git clone https://github.com/silas-pohl/post-quantum-blockchain
 ```
 2. Open the Dev Container capable editor and open the repository folder as a Dev Container
-3. If virtual environment (venv) not automatically activated: 
+3. If virtual environment (venv) not automatically activated:
 ```
 source ../venv/bin/activate
 ```
@@ -74,13 +74,13 @@ TOTAL                                          281      0   100%
 ```
 
 ### Running the Measurements
-Prerequisites: Before running the script, ensure packages in requirements.txt are installed. 
+Prerequisites: Before running the script, ensure packages in requirements.txt are installed.
 
 ```
 pip install -r requirements.txt
 ```
 
-To run measurements and collect metrics on a selection of the supported signatures, run the script `performance_tests.py` inside `measurements` folder. 
+To run measurements and collect metrics on a selection of the supported signatures, run the script `performance_tests.py` inside `measurements` folder.
 ```
 cd measurements
 python performance_tests.py
@@ -122,7 +122,7 @@ To use the blockchain and implement own scenarios, the cryptography provider and
 import cryptography
 from blockchain import Transaction, Blockchain
 import base64 #needed to use the public key as the public address
-``` 
+```
 
 To create the "wallets" we us as part of our blockchain, we need to generate public keys and their corresponding secret keys. The used <signature_algorithm> and <hash_function> can be choosen freely out of all supported signature algorithms and hash functions (BUT: the same crypto provider should be used for key generation and all other blockchain operations). The constants `cryptography.SUPPORTED_SIGNATURE_ALGOROITHMS` and `cryptography.SUPPORTED_HASH_FUNCTIONS` contain the respective lists.
 ```python
@@ -158,7 +158,7 @@ This process takes time depending on the choosen `<difficulty>` and once done, t
 blockchain.get_balance(address1)
 blockchain.get_balance(address2)
 ```
-The integrity of the blockchain (Each block in the chain is valid and all hashes link correctly) can be verified. 
+The integrity of the blockchain (Each block in the chain is valid and all hashes link correctly) can be verified.
 ```python
 blockchain.is_valid()
 ```
