@@ -1,5 +1,6 @@
 # Post-Quantum-Blockchain
-Evaluating the feasibility of introducing Post-Quantum-Cryptography in blockchains using the example of a minimal Python-based blockchain 
+<img width="1602" alt="image" src="https://github.com/user-attachments/assets/3489946c-51f8-4b2a-9159-2bd672e3ea45" />
+
 <p align="center">
   <a href="https://www.python.org/">
     <img src="https://img.icons8.com/?size=512&id=13441&format=png" height="60">
@@ -22,8 +23,13 @@ Evaluating the feasibility of introducing Post-Quantum-Cryptography in blockchai
 </p>
 
 ---
+**“It’s time to prepare for quantum threats.”**
 
-### Description
+\- Dr. Lily Chen (mathematician and NIST fellow) in ["The race is on for quantum-safe cryptography", 2021](https://www.theverge.com/22523067/nist-challenge-quantum-safe-cryptography-computer-lattice)
+
+
+---
+
 ### Getting Started
 Since the Open Quantum Safe Project, which provides the quantum safe signature algorithms, requires the local installation of the underlying C implementation, we decided to set up a Dev Container. This allows us to specify the installation of all requirements once in a Dockerfile, enabling easy use of this project without the requirement to install anything locally other than a Dev Container capable editor (rec. [Visual Studio Code](https://code.visualstudio.com/) + [Dev Container Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)) and [Docker](https://www.docker.com/).
 
