@@ -20,7 +20,7 @@ def test_keygen_sign_and_verify(signature_algorithm):
     is_valid = crypto_provider.verify(public_key, message, signature)
     assert is_valid, "Signature verification should return True"
 
-    invalid_signature = signature[:-1] + b"\x00"  # Corrupt the signature
+    invalid_signature = signature[:-1] + bytes([signature[-1] ^ 0xFF]) # Corrupt the signature
     is_valid = crypto_provider.verify(public_key, message, invalid_signature)
     assert not is_valid, "Verification of invalid signature should return False"
 
