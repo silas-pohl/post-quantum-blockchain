@@ -49,8 +49,6 @@ class Block:
         Returns:
             bool: True if the block is valid; False otherwise.
         """
-        print(self.hash)
-        print(self.compute_hash())
 
         if (
             not all(transaction.is_valid() for transaction in self.transactions) or

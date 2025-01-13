@@ -124,7 +124,7 @@ from blockchain import Transaction, Blockchain
 import base64 #needed to use the public key as the public address
 ```
 
-To create the "wallets" we us as part of our blockchain, we need to generate public keys and their corresponding secret keys. The used <signature_algorithm> and <hash_function> can be choosen freely out of all supported signature algorithms and hash functions (BUT: the same crypto provider should be used for key generation and all other blockchain operations). The constants `cryptography.SUPPORTED_SIGNATURE_ALGOROITHMS` and `cryptography.SUPPORTED_HASH_FUNCTIONS` contain the respective lists.
+To create the "wallets" we us as part of our blockchain, we need to generate public keys and their corresponding secret keys. The used <signature_algorithm> and <hash_function> can be choosen freely out of all supported signature algorithms and hash functions (BUT: the same crypto provider should be used for key generation and all other blockchain operations). The constants `cryptography.SUPPORTED_SIGNATURE_ALGORITHMS` and `cryptography.SUPPORTED_HASH_FUNCTIONS` contain the respective lists.
 ```python
 crypto_provider = cryptography.CryptoProvider(<signature_algorithm>, <hash_function>)
 public_key1, secret_key1 = crypto_provider.generate_keypair()
